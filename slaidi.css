@@ -1,0 +1,230 @@
+/* === ОБНУЛЕНИЕ И БАЗА === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+    /* Анимированный градиентный фон */
+    background: linear-gradient(-45deg, #16222A, #3A6073, #16222A, #2C5364);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    min-height: 100vh; /* Чтобы фон был на весь экран */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Анимация фона */
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* === НАВИГАЦИЯ (МЕНЮ) === */
+header {
+    padding: 20px 40px;
+    background: rgba(0, 0, 0, 0.3); /* Полупрозрачная полоска */
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center; /* Меню по центру */
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 20px;
+    font-size: 18px;
+    font-weight: 500;
+    padding-bottom: 5px;
+    position: relative;
+    transition: 0.3s;
+}
+
+nav a:hover, nav a.active {
+    color: #00d4ff;
+}
+
+/* Полоска под ссылкой при наведении */
+nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #00d4ff;
+    transition: width 0.3s;
+}
+nav a:hover::after {
+    width: 100%;
+}
+
+/* === ОСНОВНОЙ КОНТЕЙНЕР === */
+main {
+    flex: 1; /* Растягивает контент, прижимая футер вниз */
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    width: 100%;
+}
+
+/* === СТИЛЬ ДЛЯ ТЕКСТОВЫХ СТРАНИЦ (СТЕКЛО) === */
+.content-box {
+    background: rgba(255, 255, 255, 0.1); /* Прозрачный белый */
+    backdrop-filter: blur(10px); /* Размытие фона под блоком */
+    border-radius: 20px;
+    padding: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 0.8s ease;
+}
+
+.content-box h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #00d4ff;
+}
+
+.content-box p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* === ГАЛЕРЕЯ (ФОТО) === */
+.gallery-grid {
+    display: grid;
+    /* АВТОМАТИЧЕСКАЯ сетка: фото не будут огромными */
+    /* Плитки будут минимум 200px, и заполнят ряд */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.thumb {
+    width: 100%;
+    height: 200px; /* Фиксированная высота для аккуратности */
+    object-fit: cover; /* Обрезка лишнего, чтобы не плющило */
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    background: rgba(0,0,0,0.2); /* Заглушка пока грузится */
+}
+
+.thumb:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    z-index: 10;
+}
+
+/* === LIGHTBOX (ПРОСМОТР НА ВЕСЬ ЭКРАН) === */
+.lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.9);
+    display: none; /* Скрыто по умолчанию */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.lightbox.active {
+    display: flex;
+    opacity: 1;
+}
+
+.lightbox-img {
+    max-width: 90%;
+    max-height: 85vh;
+    border-radius: 5px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+}
+
+.lb-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+    padding: 20px;
+    transition: 0.2s;
+}
+
+.lb-btn:hover { color: #00d4ff; transform: translateY(-50%) scale(1.2); }
+.left { left: 20px; }
+.right { right: 20px; }
+.close { 
+    position: absolute; 
+    top: 20px; 
+    right: 30px; 
+    font-size: 40px; 
+    cursor: pointer; 
+    color: #fff;
+}
+
+/* Анимация появления */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Футер */
+footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 14px;
+    opacity: 0.6;
+}
+
+
+
+
+
+
+
+
+/* Стили для контейнера навигации, чтобы всё было в одну линию */
+nav {
+    display: flex;
+    align-items: center; /* Центрирует всё по вертикали */
+}
+
+/* Стили конкретно для центральной кнопки */
+.home-btn {
+    background: linear-gradient(135deg, #00d4ff, #0077ff);
+    padding: 10px 25px !important; /* Увеличиваем внутренние отступы */
+    border-radius: 25px; /* Скругляем углы */
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+    transition: 0.3s all ease !important;
+    border: none;
+    margin: 0 15px; /* Отступы по бокам */
+}
+
+/* Эффект при наведении на кнопку */
+.home-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 212, 255, 0.5);
+    background: linear-gradient(135deg, #1ae3ff, #3390ff);
+    color: #fff !important;
+}
+
+/* Убираем нижнюю полоску при наведении (которая есть у других ссылок) */
+.home-btn::after {
+    display: none !important;
+}
