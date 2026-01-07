@@ -1,27 +1,29 @@
-/* ================= ОСНОВНЫЕ СТИЛИ ================= */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    font-family: 'Montserrat', sans-serif;
-    color: #ffffff;
-    overflow-x: hidden;
-    position: relative;
+html, body {
+    height: 100%;
 }
 
-/* Затемнение фона для читаемости */
+body {
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+    overflow-x: hidden;
+}
+
+/* затемнение */
 body::before {
     content: "";
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.35);
+    background: rgba(0,0,0,0.4);
     z-index: -1;
 }
 
-/* Видео-фон */
+/* видео фон */
 .video-bg {
     position: fixed;
     inset: 0;
@@ -29,160 +31,196 @@ body::before {
     height: 100%;
     object-fit: cover;
     z-index: -2;
-    filter: brightness(0.6) blur(1px);
 }
 
-/* Анимации */
-@keyframes bgMove {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+.mobile-video { display: none; }
+
+@media (max-width: 768px) {
+    .desktop-video { display: none; }
+    .mobile-video { display: block; }
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+/* === LAYOUT === */
+.page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-/* ================= HEADER ================= */
+/* === HEADER === */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 25px 35px;
-    backdrop-filter: blur(10px);
-    position: relative;
+    padding: 20px 30px;
 }
 
 .logo img {
-    height: 75px;
-    /* Если логотип съезжает, раскомментируй строки ниже */
-    /* position: absolute; left: 15px; top: 50%; transform: translateY(-50%); */
+    height: 65px;
 }
 
 nav a {
     color: #fff;
     text-decoration: none;
-    margin-left: 35px; /* Увеличил отступ между ссылками */
-    font-weight: 600;  /* Сделал текст чуть жирнее (было 500) */
-    font-size: 25px;   /* УВЕЛИЧЕННЫЙ РАЗМЕР (настрой под себя) */
-    letter-spacing: 0.5px; /* Небольшое расстояние между буквами */
-    position: relative;
+    margin-left: 30px;
+    font-weight: 600;
     transition: 0.3s;
-}
-nav a::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -6px;
-    width: 0;
-    height: 2px;
-    background: #00d4ff;
-    transition: 0.3s;
-}
-nav a:hover {
-    color: #00d4ff;
-    transform: scale(1.1); 
-}
-nav a:hover::after {
-    width: 100%;
-    
 }
 
-/* ================= HERO СЕКЦИЯ ================= */
+nav a:hover {
+    color: #00d4ff;
+}
+
+/* === MAIN === */
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+/* === HERO === */
 .hero {
     text-align: center;
-    padding: 120px 20px 80px;
+    padding: 40px 20px 30px;
+}
+
+/* ================= HERO TYPOGRAPHY ================= */
+
+.hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    line-height: 1.15;
+}
+.hero h1 {
+    text-shadow:
+        0 0 12px rgba(0, 212, 255, 0.45),
+        0 0 30px rgba(0, 212, 255, 0.25),
+        0 12px 50px rgba(0, 0, 0, 0.7);
 }
 
 .hero h1 {
-    font-size: 48px;
-    font-weight: 700;
-    animation: fadeIn 1.2s ease;
+    position: relative;
+}
+
+.hero h1::after {
+    content: "";
+    position: absolute;
+    inset: -20px;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(0, 212, 255, 0.25),
+        transparent 70%
+    );
+    z-index: -1;
+    filter: blur(30px);
 }
 
 .hero p {
-    font-size: 18px;
-    margin-top: 20px;
-    opacity: 0.85;
-    animation: fadeIn 2s ease;
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(16px, 2.5vw, 20px);
+    font-weight: 400;
+    line-height: 1.6;
+    max-width: 680px;
+    margin: 24px auto 0;
+    opacity: 0.9;
+}
+.hero p {
+    text-shadow:
+        0 2px 12px rgba(0, 0, 0, 0.65);
 }
 
-/* Кнопка */
+
+
 .hero-btn {
     display: inline-block;
-    margin-top: 40px;
-    padding: 14px 40px;
-    font-size: 16px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    color: #ffffff;
-    text-decoration: none;
+    margin-top: 30px;
+    padding: 14px 38px;
     border-radius: 40px;
-    background: linear-gradient(135deg, #00d4ff, #0077ff);
-    box-shadow: 0 12px 30px rgba(0, 212, 255, 0.35);
-    transition: all 0.35s ease;
-    animation: fadeIn 2.6s ease;
+    background: linear-gradient(135deg,#00d4ff,#0077ff);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
 }
 
 .hero-btn:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 18px 40px rgba(0, 212, 255, 0.55);
-    background: linear-gradient(135deg, #1ae3ff, #3390ff);
+    transform: translateY(-3px);
 }
 
-.hero-btn:active {
-    transform: translateY(-1px);
-}
-
+/* === GALLERY === */
 .gallery {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    max-width: 1200px; 
-    margin: 0 auto 80px; /* Центрируем галерею */
+    max-width: 1200px;
+    margin: 0 auto 40px;
     padding: 0 20px;
 
-    /* Включаем сетку */
-    display: grid !important; 
-    /* РОВНО 7 КОЛОНОК одинаковой ширины */
-    grid-template-columns: repeat(7, 1fr) !important; 
-    gap: 15px; /* Расстояние между картинками */
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 14px;
 }
 
 .thumb {
-    width: 10% !important; 
-    
-    /* Делаем квадрат */
-    aspect-ratio: 1 / 1; 
+    width: 100%;
+    aspect-ratio: 1 / 1;
     object-fit: cover;
-    
     border-radius: 12px;
     cursor: pointer;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s;
 }
 
 .thumb:hover {
     transform: scale(1.05);
 }
 
+/* === FOOTER === */
+footer {
+    text-align: center;
+    padding: 25px 15px;
+    background: rgba(0,0,0,0.25);
+}
 
-/* Если экран меньше 1000px — делаем 4 в ряд */
+.social a {
+    color: #fff;
+    font-size: 24px;
+    margin: 0 12px;
+}
+
+.note {
+    font-size: 14px;
+    opacity: 0.75;
+    margin-bottom: 10px;
+}
+
+/* === ADAPTIVE === */
 @media (max-width: 1000px) {
-    .gallery {
-        grid-template-columns: repeat(4, 1fr) !important;
-    }
+    .gallery { grid-template-columns: repeat(4, 1fr); }
 }
 
-/* Если экран меньше 600px (телефон) — делаем 2 в ряд */
 @media (max-width: 600px) {
-    .gallery {
-        grid-template-columns: repeat(2, 1fr) !important;
+    nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
     }
+
+    nav a {
+        margin: 0;
+        font-size: 14px;
+        background: rgba(255,255,255,0.1);
+        padding: 6px 12px;
+        border-radius: 14px;
+    }
+
+    .hero h1 { font-size: 30px; }
+    .gallery { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* ================= LIGHTBOX (ПРОСМОТР) ================= */
+
+/* ================= LIGHTBOX — ФИКС ДЛЯ ГЛАВНОЙ ================= */
+
 .lightbox {
     position: fixed;
     inset: 0;
@@ -190,192 +228,74 @@ nav a:hover::after {
     display: none;
     align-items: center;
     justify-content: center;
-    z-index: 1000;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    z-index: 9999;
 }
 
 .lightbox.active {
     display: flex;
-    opacity: 1;
 }
 
+/* Центр изображения */
 .lightbox-img {
-    max-width: 90%;
+    max-width: 90vw;
     max-height: 85vh;
-    border-radius: 8px;
-    box-shadow: 0 0 50px rgba(0,0,0,0.5);
     object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.8);
 }
 
-/* Стрелки слайдера */
+/* КНОПКА ЗАКРЫТИЯ */
+.lightbox .close {
+    position: fixed;
+    top: 20px;
+    right: 30px;
+    font-size: 42px;
+    color: white;
+    cursor: pointer;
+    z-index: 10001;
+}
+
+/* СТРЕЛКИ — ТОЛЬКО В LIGHTBOX */
 .lightbox .arrow {
-    position: absolute;
+    position: fixed;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.1);
-    border: none;
-    color: white;
-    font-size: 30px;
-    width: 50px;
-    height: 50px;
+    width: 56px;
+    height: 56px;
+    font-size: 32px;
     border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    border: none;
     cursor: pointer;
-    transition: 0.3s;
-    display: flex;     /* Центрируем стрелочку внутри круга */
+    z-index: 10001;
+
+    display: flex;
     align-items: center;
     justify-content: center;
+
+    transition: background 0.3s, transform 0.3s;
 }
 
 .lightbox .arrow:hover {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255,255,255,0.35);
+    transform: translateY(-50%) scale(1.1);
 }
 
-.lightbox .left { left: 20px; }
-.lightbox .right { right: 20px; }
-
-.close {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    font-size: 40px;
-    cursor: pointer;
-    color: white;
-    transition: 0.3s;
+.lightbox .left {
+    left: 20px;
 }
 
-.close:hover {
-    color: #ff4d4d;
-}
-
-/* ================= FOOTER ================= */
-footer {
-    text-align: center;
-    padding: 40px 20px;
-    background: rgba(0,0,0,0.2); /* Немного фона для подвала */
-}
-
-.social a {
-    color: #fff;
-    font-size: 26px;
-    margin: 0 15px;
-    transition: 0.3s;
-    display: inline-block;
-}
-
-.social a:hover {
-    color: #00d4ff;
-    transform: scale(1.2);
-}
-
-.note {
-    margin-top: 20px;
-    font-size: 14px;
-    opacity: 0.7;
-    line-height: 1.6;
+.lightbox .right {
+    right: 20px;
 }
 
 
-
-/* ============================================== */
-/* МОБИЛЬНАЯ АДАПТАЦИЯ                */
-/* ============================================== */
-
-/* 1. ЛОГИКА ПЕРЕКЛЮЧЕНИЯ ВИДЕО */
-
-/* По умолчанию (на ПК) скрываем мобильное видео */
-.mobile-video {
-    display: none;
-}
-
-/* Когда экран становится узким (телефоны и планшеты вертикально) */
-@media (max-width: 768px) {
-    /* Скрываем ПК видео */
-    .desktop-video {
-        display: none;
-    }
-    /* Показываем Мобильное видео */
-    .mobile-video {
-        display: block;
-        object-fit: cover; /* Заполняет весь экран */
-    }
-}
-
-
-/* 2. АДАПТАЦИЯ ИНТЕРФЕЙСА ПОД ТЕЛЕФОН */
-
-@media (max-width: 900px) {
-    /* Перестраиваем шапку: Логотип сверху, меню снизу */
-    header {
-        flex-direction: column;
-        padding: 15px 10px;
-        background: rgba(0, 0, 0, 0.6); /* Чуть темнее фон меню для читаемости */
-    }
-
-    .logo img {
-        height: 60px; /* Чуть уменьшаем лого */
-        margin-bottom: 15px;
-    }
-
-    /* Меню делаем списком или компактным блоком */
-    nav {
-        display: flex;
-        flex-wrap: wrap; /* Разрешаем перенос строк */
-        justify-content: center;
-        gap: 15px; /* Отступы между ссылками */
-        width: 100%;
-    }
-
+/* ================= DESKTOP NAV SIZE ================= */
+@media (min-width: 1024px) {
     nav a {
-        margin-left: 0; /* Убираем старый отступ слева */
-        font-size: 16px; /* Уменьшаем шрифт (было 25px) */
-        padding: 5px 10px;
-        background: rgba(255,255,255,0.1); /* Плашка под ссылкой */
-        border-radius: 15px;
-    }
-    
-    /* Убираем подчеркивание на мобильных, оставляем только плашку */
-    nav a::after {
-        display: none; 
-    }
-
-    /* Секция Hero (Заголовок) */
-    .hero {
-        padding: 60px 20px 40px; /* Уменьшаем отступы */
-    }
-
-    .hero h1 {
-        font-size: 32px; /* Уменьшаем заголовок (было 48px) */
-        line-height: 1.2;
-    }
-
-    .hero p {
-        font-size: 15px;
-    }
-
-    .hero-btn {
-        width: 100%; /* Кнопка на всю ширину для удобства нажатия */
-        max-width: 300px;
-        padding: 16px 0;
-    }
-    
-    /* Галерея: исправляем сетку */
-    .gallery {
-        gap: 10px;
-        margin-bottom: 40px;
+        font-size: 23px;
+        margin-left: 36px;
+        letter-spacing: 0.5px;
     }
 }
-
-/* Дополнительно для совсем узких экранов (старые айфоны) */
-@media (max-width: 400px) {
-    .hero h1 {
-        font-size: 28px;
-    }
-    nav a {
-        font-size: 14px;
-    }
-}
-
-
-
-
