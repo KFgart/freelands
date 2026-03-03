@@ -299,3 +299,34 @@ footer {
         letter-spacing: 0.5px;
     }
 }
+
+
+
+/* ===== VOTE BUTTONS (below "Добавить сервер") ===== */
+.vote-row{
+    margin-top: 14px;          /* отступ ниже hero-btn */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;                 /* расстояние между 2 кнопками */
+    flex-wrap: wrap;           /* чтобы на узких экранах переносилось */
+}
+
+.vote-btn{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;            /* чтобы не было лишней высоты строки */
+}
+
+.vote-btn img{
+    display: block;
+}
+
+/* Мобилки: можно оставить в ряд, но если хочется — в колонку */
+@media (max-width: 420px){
+    .vote-row{
+        flex-direction: column;
+        gap: 10px;
+    }
+}
